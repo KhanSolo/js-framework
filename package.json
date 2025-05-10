@@ -1,0 +1,24 @@
+{
+  "name": "js-framework-project",
+  "version": "1.0.0",
+  "description": "A project to learn how to js framework can be written",
+  "private": "true",
+  "workspaces": [
+    "packages/runtime"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "serve:examples": "npx http-server . -o ./examples/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KhanSolo/js-framework.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KhanSolo/js-framework/issues"
+  },
+  "homepage": "https://github.com/KhanSolo/js-framework#readme"
+}
