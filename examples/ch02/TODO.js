@@ -4,7 +4,7 @@ const addTodoInput = document.getElementById('todo-input')
 const addTodoButton = document.getElementById('add-todo-btn')
 const TODOlist = document.getElementById('TODO-list')
 
-for (const todo in todos) {
+for (const todo of todos) {
     TODOlist.append(renderTodoInReadMode(todo))
 }
 
@@ -23,17 +23,38 @@ addTodoButton.addEventListener('click', ()=>{
 })
 
 function renderTodoInReadMode(todo) {
-    //console.log(todo);
-
     const li = document.createElement('li');
     
     const span = document.createElement('span');
     span.textContent = todo;
-    li.append(span)
+    span.addEventListener('dblclick', () => {
+        const idx = todos.indexOf(todo);
+        TODOlist.replaceChild(
+            renderTodoInEditMode(todo),
+            TODOlist.childNodes[idx]
+        )
+    });
+    li.append(span);
+
+    const button = document.createElement('button');
+    button.textContent = 'Done';
+    button.addEventListener('click', () => {
+        const idx = todos.indexOf(todo);
+        removeTodo(idx);
+    });
+    li.append(button);
 
     return li;
 }
 
 function addTodo() {
     console.log(`addTodo`);
+}
+
+function removeTodo() {
+    console.log(`removeTodo`);
+}
+
+function renderTodoInEditMode(todo) {
+
 }
