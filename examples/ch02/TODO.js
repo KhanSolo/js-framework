@@ -2,10 +2,10 @@ const todos = ['Walk the dog', 'Water the plants', 'Sand the chairs' ]
 
 const addTodoInput = document.getElementById('todo-input')
 const addTodoButton = document.getElementById('add-todo-btn')
-const TODOlist = document.getElementById('TODO-list')
+const todoList = document.getElementById('TODO-list')
 
 for (const todo of todos) {
-    TODOlist.append(renderTodoInReadMode(todo))
+    todoList.append(renderTodoInReadMode(todo))
 }
 
 addTodoInput.addEventListener('input',() => {
@@ -29,9 +29,9 @@ function renderTodoInReadMode(todo) {
     span.textContent = todo;
     span.addEventListener('dblclick', () => {
         const idx = todos.indexOf(todo);
-        TODOlist.replaceChild(
+        todoList.replaceChild(
             renderTodoInEditMode(todo),
-            TODOlist.childNodes[idx]
+            todoList.childNodes[idx]
         )
     });
     li.append(span);
@@ -47,14 +47,44 @@ function renderTodoInReadMode(todo) {
     return li;
 }
 
+function renderTodoInEditMode(todo) {
+    const li = document.createElement('li');
+    
+    const input = document.createElement('input');
+    input.type = 'text'
+    input.value = todo
+    li.append(input);
+
+    const saveButton = document.createElement('button');
+    saveButton.textContent = 'Save';
+    saveButton.addEventListener('click', () => {
+        const idx = todos.indexOf(todo);
+        updateTodo(idx, input.value);
+    });
+    li.append(saveButton);
+
+    const cancelButton = document.createElement('button');
+    cancelButton.textContent = 'Cancel';
+    cancelButton.addEventListener('click', () => {
+        const idx = todos.indexOf(todo);
+        todoList.replaceChild(
+            renderTodoInReadMode(todo),
+            todoList.childNodes(idx)
+        )
+    });
+    li.append(cancelButton);
+
+    return li;
+}
+
 function addTodo() {
     console.log(`addTodo`);
 }
 
-function removeTodo() {
-    console.log(`removeTodo`);
+function updateTodo(idx, description) {
+    console.log(`updateTodo ` + idx + ` ` + description);
 }
 
-function renderTodoInEditMode(todo) {
-
+function removeTodo(idx) {
+    console.log(`removeTodo ` + idx);
 }
