@@ -2,10 +2,10 @@ const todos = ['Walk the dog', 'Water the plants', 'Sand the chairs' ]
 
 const addTodoInput = document.getElementById('todo-input')
 const addTodoButton = document.getElementById('add-todo-btn')
-const todoList = document.getElementById('TODO-list')
+const todosList = document.getElementById('TODO-list')
 
 for (const todo of todos) {
-    todoList.append(renderTodoInReadMode(todo))
+    todosList.append(renderTodoInReadMode(todo))
 }
 
 addTodoInput.addEventListener('input',() => {
@@ -29,9 +29,9 @@ function renderTodoInReadMode(todo) {
     span.textContent = todo;
     span.addEventListener('dblclick', () => {
         const idx = todos.indexOf(todo);
-        todoList.replaceChild(
+        todosList.replaceChild(
             renderTodoInEditMode(todo),
-            todoList.childNodes[idx]
+            todosList.childNodes[idx]
         )
     });
     li.append(span);
@@ -51,8 +51,8 @@ function renderTodoInEditMode(todo) {
     const li = document.createElement('li');
     
     const input = document.createElement('input');
-    input.type = 'text'
-    input.value = todo
+    input.type = 'text';
+    input.value = todo;
     li.append(input);
 
     const saveButton = document.createElement('button');
@@ -67,9 +67,9 @@ function renderTodoInEditMode(todo) {
     cancelButton.textContent = 'Cancel';
     cancelButton.addEventListener('click', () => {
         const idx = todos.indexOf(todo);
-        todoList.replaceChild(
+        todosList.replaceChild(
             renderTodoInReadMode(todo),
-            todoList.childNodes(idx)
+            todosList.childNodes[idx]
         )
     });
     li.append(cancelButton);
@@ -78,13 +78,21 @@ function renderTodoInEditMode(todo) {
 }
 
 function addTodo() {
-    console.log(`addTodo`);
+    const description = addTodoInput.value;
+    todos.push(description);
+    todosList.append(renderTodoInReadMode(description))
+    addTodoInput.value = ``;
+    addTodoButton.disabled = true;
 }
 
 function updateTodo(idx, description) {
-    console.log(`updateTodo ` + idx + ` ` + description);
+    todos[idx] = description
+    todosList.replaceChild(
+        renderTodoInReadMode(description),
+        todosList.childNodes[idx])
 }
 
 function removeTodo(idx) {
-    console.log(`removeTodo ` + idx);
+    todos.splice(idx, 1);
+    todosList.children[idx].remove(); // remove node    
 }
