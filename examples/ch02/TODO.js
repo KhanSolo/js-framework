@@ -104,6 +104,14 @@ function addTodo() {
     todosList.append(renderTodoInReadMode(newTodo))
     addTodoInput.value = ``;
     addTodoButton.disabled = true;
+    readTodo(description)
+}
+
+function readTodo(description) {
+    const message = new SpeechSynthesisUtterance()
+    message.text = description
+    message.voice = speechSynthesis.getVoices()[0]
+    speechSynthesis.speak(message)
 }
 
 function todoExists(description) {
