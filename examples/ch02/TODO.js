@@ -30,7 +30,6 @@ function renderTodoInReadMode(todo) {
     const span = document.createElement('span');
     span.textContent = todo.description;
 
-    console.log(todo)
     if (todo.done) { 
         span.classList.add(`done`);
     }
@@ -93,11 +92,23 @@ function renderTodoInEditMode(todo) {
 }
 
 function addTodo() {
-    const newTodo = { description:addTodoInput.value, done:false };
+    const description = addTodoInput.value;
+
+    if (todoExists(description)){
+        alert('Todo already exists');
+        return;
+    }
+
+    const newTodo = { description:description, done:false };
     todos.push(newTodo);
     todosList.append(renderTodoInReadMode(newTodo))
     addTodoInput.value = ``;
     addTodoButton.disabled = true;
+}
+
+function todoExists(description) {
+    const cleanTodos = todos.map((todo) => todo.description.trim().toLowerCase())
+    return cleanTodos.includes(description.trim().toLowerCase())
 }
 
 function updateTodo(idx, description) {
